@@ -49,4 +49,19 @@ router.post("/", function(req, res, next) {
   });
 });
 
+/* DELET game */
+router.delete("/:id", function(req, res, next) {
+  Game.destroy({
+    where: {id: req.params.id}
+  })
+  .then(games => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify(games));
+  })
+  .catch(error => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(500).send({error})
+  });
+});
+
 module.exports = router;
